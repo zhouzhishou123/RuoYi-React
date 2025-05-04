@@ -1,0 +1,8 @@
+node_modules
+.cursor/**
+.vscode/**
+.DS_Store
+.idea/**
+.vscode/**
+.idea/**
+pnpm-lock.yaml

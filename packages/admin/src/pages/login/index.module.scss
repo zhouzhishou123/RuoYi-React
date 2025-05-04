@@ -1,0 +1,37 @@
+.loginContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f0f2f5;
+}
+
+.loginCard {
+  width: 400px;
+  padding: 24px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 24px;
+  color: #1890ff;
+  font-size: 24px;
+}
+
+.captchaContainer {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.captchaImage {
+  height: 40px;
+  cursor: pointer;
+  border-radius: 4px;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}

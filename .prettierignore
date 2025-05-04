@@ -1,0 +1,11 @@
+node_modules
+dist
+build
+coverage
+*.min.js
+*.d.ts
+*.test.{js,ts}
+*.spec.{js,ts}
+.eslintrc.js
+.prettierrc.js
+pnpm-lock.yaml
