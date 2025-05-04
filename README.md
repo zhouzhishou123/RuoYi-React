@@ -138,11 +138,11 @@ cd ice-frog
 # 安装依赖
 pnpm install
 
-# 初始化数据库
-# 请先手动导入数据库脚本 packages/server/sql/ice-frog.sql
-
+初始化数据库
+请先手动导入数据库脚本 packages/server/sql/*.sql
+pnpm docker:mysql
 # 启动服务
-pnpm dev
+pnpm start
 ```
 
 前端访问地址：<http://localhost:5173>  
@@ -236,11 +236,16 @@ ice-frog/
 ## 联系我们
 
 * 交流社区：欢迎通过 Issues 或 Discussions 与我们交流
-* 问题反馈：<https://github.com/zhouzhishou/ice-frog/issues>
+* 问题反馈：
+
+* <https://github.com/zhouzhishou123/RuoYi-React/issues>
+
+* <https://gitee.com/zhouzhishou/RuoYi-React/issues>
 
 ## 捐赠支持
 
 如果您觉得这个项目对您有帮助，欢迎捐赠支持我们持续开发维护
 
-<img src="docs/images/donate.jpg" width="300" alt="Donate">
-<img src="docs/images/wechat.jpg" width="300" alt="wechat">
+<img src="docs/images/donate.jpg" width="200" alt="Donate">
+
+<img src="docs/images/wechat.jpg" width="200" alt="wechat">
