@@ -4,16 +4,31 @@ import { Menu } from 'antd';
 import React, { useCallback, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
+import SvgIcon from '../SvgIcon';
 
 type MenuItem = Required<MenuProps>['items'][number];
+
+function transformSvgComponent(menus: MenuItem[]) {
+  if (!menus || menus.length === 0) return menus;
+  return menus.map(menu => {
+    return {
+      ...menu,
+      icon: <SvgIcon name={menu.icon} />,
+      children: menu.children ? transformSvgComponent(menu.children) : [],
+    };
+  });
+}
 
 const MenuBar: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const menus: MenuItem[] = useSelector((state: RootState) => state.app.menus);
+  const menuList = useMemo(() => {
+    return transformSvgComponent(menus);
+  }, [menus]);
   const defaultSelectedKeys = useMemo(() => {
     if (menus && menus.length > 0) {
-      return [menus[0].key as string];
+      return [menus[0]?.key as string];
     }
     return [];
   }, [menus]);
@@ -54,7 +69,7 @@ const MenuBar: React.FC = () => {
       theme="dark"
       mode="inline"
       selectedKeys={current}
-      items={menus}
+      items={menuList}
     />
   );
 };

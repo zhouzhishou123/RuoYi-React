@@ -1,0 +1,16 @@
+.svg-icon {
+  display: inline-block;
+}
+
+.svg-icon-spin {
+  animation: svg-spin 1s linear infinite;
+}
+
+@keyframes svg-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
