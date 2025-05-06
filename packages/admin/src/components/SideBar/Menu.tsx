@@ -9,12 +9,12 @@ import SvgIcon from '../SvgIcon';
 type MenuItem = Required<MenuProps>['items'][number];
 
 function transformSvgComponent(menus: MenuItem[]) {
-  if (!menus || menus.length === 0) return menus;
+  if (!menus || menus.length === 0) return;
   return menus.map(menu => {
     return {
       ...menu,
       icon: <SvgIcon name={menu.icon} />,
-      children: menu.children ? transformSvgComponent(menu.children) : [],
+      children: menu.children ? transformSvgComponent(menu.children) : undefined,
     };
   });
 }
@@ -57,10 +57,10 @@ const MenuBar: React.FC = () => {
     navigate(item.props.fullpath);
     setCurrent([key]);
   };
-  // 确保有菜单项可渲染
-  if (!menus || menus.length === 0) {
-    return null;
-  }
+  // // 确保有菜单项可渲染
+  // if (!menus || menus.length === 0) {
+  //   return null;
+  // }
 
   return (
     <Menu
