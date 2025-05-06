@@ -7,6 +7,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Outlet } from 'react-router-dom';
 import styles from './base.layout.module.scss';
+import NavBar from '@/components/NavBar';
 const { Header, Content } = Layout;
 
 const BaseLayout: React.FC = () => {
@@ -25,16 +26,19 @@ const BaseLayout: React.FC = () => {
             style={{ padding: 0, background: colorBgContainer }}
             className={collapsed ? 'collapsed' : ''}
           >
-            <Button
-              type="text"
-              icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-              onClick={() => dispatch(setCollapsed(!collapsed))}
-              style={{
-                fontSize: '16px',
-                width: 64,
-                height: 64,
-              }}
-            />
+            <div className={styles.header}>
+              <Button
+                type="text"
+                icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+                onClick={() => dispatch(setCollapsed(!collapsed))}
+                style={{
+                  fontSize: '16px',
+                  width: 64,
+                  height: 64,
+                }}
+              />
+              <NavBar />
+            </div>
           </Header>
           <div className="main-content">
             <Content

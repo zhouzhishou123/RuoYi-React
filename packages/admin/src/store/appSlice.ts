@@ -1,6 +1,7 @@
 import { generateMenu, generateRoutes } from '@/permission/generateRoutes';
 import { createSlice } from '@reduxjs/toolkit';
 import { cloneDeep } from 'lodash-es';
+import { removeAccessToken } from '@/utils/storage';
 
 const initialState = {
   collapsed: false,
@@ -31,8 +32,15 @@ const appSlice = createSlice({
     setRoles: (state, action) => {
       state.roles = action.payload;
     },
+    logout: state => {
+      removeAccessToken();
+      state.userInfo = {};
+      state.roles = [];
+      state.routes = [];
+      state.menus = [];
+    },
   },
 });
 
-export const { setUserInfo, setRoles, setMenus, setRoutes, setCollapsed } = appSlice.actions;
+export const { setUserInfo, setRoles, logout, setRoutes, setCollapsed } = appSlice.actions;
 export default appSlice.reducer;

@@ -21,6 +21,7 @@ function getAccessToken() {
 
 function removeAccessToken() {
   localStorage.removeItem('access_token');
+  localStorage.removeItem('persist:root');
 }
 
 export { getAccessToken, getToken, removeAccessToken, setAccessToken };

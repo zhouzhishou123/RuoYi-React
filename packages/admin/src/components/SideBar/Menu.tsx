@@ -12,7 +12,10 @@ const MenuBar: React.FC = () => {
   const navigate = useNavigate();
   const menus: MenuItem[] = useSelector((state: RootState) => state.app.menus);
   const defaultSelectedKeys = useMemo(() => {
-    return [menus[0].key as string];
+    if (menus && menus.length > 0) {
+      return [menus[0].key as string];
+    }
+    return [];
   }, [menus]);
   const findKeysByPath = useCallback((menu: MenuItem, path: string, keys: string[]) => {
     if (menu.fullpath === path) {

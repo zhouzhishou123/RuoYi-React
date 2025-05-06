@@ -66,7 +66,7 @@ const Login: React.FC = () => {
   return (
     <div className={styles.loginContainer}>
       <Card className={styles.loginCard}>
-        <h1 className={styles.title}>Ice-Frog后台管理系统</h1>
+        <h1 className={styles.title}>RuoYi-React后台管理系统</h1>
         <Form<LoginForm>
           form={form}
           name="login"

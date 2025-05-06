@@ -12,7 +12,7 @@ function SideBar() {
   }, [collapsed]);
   return (
     <Sider trigger={null} collapsible collapsed={collapsed}>
-      <div className="logo-container">{!collapsed ? 'Ice-Frog Admin' : 'IF'}</div>
+      <div className="logo-container">{!collapsed ? 'RuoYi-React Admin' : 'RRA'}</div>
       <Menu />
     </Sider>
   );
