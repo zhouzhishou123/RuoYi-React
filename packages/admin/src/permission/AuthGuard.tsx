@@ -1,5 +1,5 @@
 import { setRoles, setRoutes, setUserInfo } from '@/store/appSlice';
-import { useGetRoutersQuery, useGetUserInfoQuery } from '@/store/authSlice';
+import { useGetRoutersQuery, useGetUserInfoQuery } from '@/store/querySlice';
 import { Spin } from 'antd';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';

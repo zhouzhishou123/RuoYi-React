@@ -4,7 +4,7 @@ import { Menu } from 'antd';
 import React, { useCallback, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
-import SvgIcon from '../SvgIcon';
+import SvgIcon from '../SvgIcom/SvgIcon';
 
 type MenuItem = Required<MenuProps>['items'][number];
 

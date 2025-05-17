@@ -1,4 +1,4 @@
-import { generateMenu, generateRoutes } from '@/permission/generateRoutes';
+import { generateMenu, buildRouteTree } from '@/permission/generateRoutes';
 import { createSlice } from '@reduxjs/toolkit';
 import { cloneDeep } from 'lodash-es';
 import { removeAccessToken } from '@/utils/storage';
@@ -24,7 +24,7 @@ const appSlice = createSlice({
       const menus = cloneDeep(action.payload);
       state.rawRoutes = action.payload;
       state.menus = generateMenu(menus);
-      state.routes = generateRoutes(routes);
+      state.routes = buildRouteTree(routes);
     },
     setUserInfo: (state, action) => {
       state.userInfo = action.payload;

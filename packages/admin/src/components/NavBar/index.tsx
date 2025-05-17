@@ -1,8 +1,8 @@
-import { Dropdown, Space, MenuProps, Avatar, Button } from 'antd';
-import styles from './navbar.module.scss';
-import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store';
 import { logout } from '@/store/appSlice';
+import { Avatar, Button, Dropdown, Space } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
+import styles from './navbar.module.scss';
 function DropdownRender() {
   const dispatch = useDispatch();
   return (
@@ -16,7 +16,7 @@ function NavBar() {
   const { userInfo } = useSelector((state: RootState) => state.app);
   return (
     <div className={styles.navbar}>
-      <Dropdown dropdownRender={() => <DropdownRender />}>
+      <Dropdown popupRender={() => <DropdownRender />}>
         <a onClick={e => e.preventDefault()}>
           <Space>
             <Avatar src={userInfo.avatar} />

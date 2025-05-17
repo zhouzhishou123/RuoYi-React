@@ -19,9 +19,10 @@
     activeMenu: '/system/user'      // 当路由设置了该属性，则会高亮相对应的侧边栏。
   }
  */
-import { RouteObject } from 'react-router-dom';
+
+import { RouteConfig } from '@/types';
 // 公共路由
-export const constantRoutes: RouteObject[] = [
+export const constantRoutes: RouteConfig[] = [
   {
     path: '/login',
     component: 'login/index',
@@ -37,4 +38,4 @@ export const constantRoutes: RouteObject[] = [
 ];
 
 // 动态路由，基于用户权限动态去加载
-export const dynamicRoutes = [];
+export const dynamicRoutes: RouteConfig[] = [];
