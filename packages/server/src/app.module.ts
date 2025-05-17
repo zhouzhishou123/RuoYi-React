@@ -1,6 +1,8 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import * as dotenv from 'dotenv';
 import { AuthModule } from './auth/auth.module';
 import { CaptchaModule } from './captcha/captcha.module';
 import { AuthGuardGuard } from './commom/auth-guard/auth-guard.guard';
@@ -13,19 +15,26 @@ import { MenuController } from './menu/menu.controller';
 import { MenuModule } from './menu/menu.module';
 import { RoleModule } from './role/role.module';
 import { UserModule } from './user/user.module';
-
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'localhost',
-      port: 6666,
-      logging: true,
-      username: 'root',
-      password: 'root',
-      database: 'ry-vue',
-      entities: [SysUser, SysRole, SysDept, SysMenu],
-      synchronize: true,
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: `.env.${process.env.NODE_ENV || 'development'}`,
+      load: [() => dotenv.config({ path: '.env' })],
+    }),
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        type: 'mysql',
+        host: configService.get('DB_HOST'),
+        port: configService.get('DB_PORT'),
+        username: configService.get('DB_USER'),
+        password: configService.get('DB_PASSWORD'),
+        database: configService.get('DB_NAME'),
+        entities: [SysUser, SysRole, SysDept, SysMenu],
+        synchronize: process.env.NODE_ENV === 'development',
+      }),
     }),
     AuthModule,
     CaptchaModule,

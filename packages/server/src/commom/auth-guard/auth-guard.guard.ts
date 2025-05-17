@@ -12,10 +12,11 @@ declare module 'express' {
   }
 }
 
+const prefix = process.env.GLOBAL_PREFIX || 'api';
 // 接口白名单
 const whiteList = [
-  '/prod-api/login', // 登录接口
-  '/prod-api/captchaImage', // 验证码接口
+  `/${prefix}/login`, // 登录接口
+  `/${prefix}/captchaImage`, // 验证码接口
 ];
 
 @Injectable()
@@ -23,7 +24,7 @@ export class AuthGuardGuard implements CanActivate {
   constructor(
     private readonly jwtService: JwtService,
     private reflector: Reflector,
-  ) {}
+  ) { }
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest<Request>();

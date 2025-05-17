@@ -1,6 +1,7 @@
 import { SuccessResponse } from '@/commom/Decorator/success.response.decorator';
 import { PasswordUtil } from '@/utils/security';
 import { Body, Controller, Get, Post, Session } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { ApiBody, ApiOperation } from '@nestjs/swagger';
 import { UserService } from '../user/user.service';
 import { error, success } from '../utils/Res';
@@ -12,7 +13,8 @@ export class AuthController {
   constructor(
     private readonly authService: AuthService,
     private readonly userService: UserService,
-  ) {}
+    private readonly configService: ConfigService,
+  ) { }
 
   @ApiOperation({ summary: '/login', description: '登录接口' })
   @ApiBody({

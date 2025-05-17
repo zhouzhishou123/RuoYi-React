@@ -1,4 +1,3 @@
-import { MenuRoute } from '@/types';
 import { RouteConfig } from '../types';
 
 export function buildRouteTree(routes: RouteConfig[]) {
@@ -22,8 +21,11 @@ export function buildRouteTree(routes: RouteConfig[]) {
   return dynamicRoutes;
 }
 
-export function generateMenu(routes: MenuRoute[]) {
-  const routeTree = buildRouteTree(routes);
+export function generateMenu(routes: RouteConfig[]) {
+  // 过滤隐藏的菜单
+  const visibleRoutes = routes.filter(route => !route.hidden);
+  // 构建路由树
+  const routeTree = buildRouteTree(visibleRoutes);
   // 生成菜单列表，同时给每个路由节点追加 fullPath
   return routeTree.map(route => {
     return appendFullPathToRoutes(route, '');
