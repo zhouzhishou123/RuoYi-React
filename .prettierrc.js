@@ -6,7 +6,7 @@ module.exports = {
   tabWidth: 2,
   endOfLine: 'lf',
   arrowParens: 'avoid',
-  bracketSpacing: true,
+  bracketSpacing: false,
   jsxBracketSameLine: false,
   jsxSingleQuote: true,
 };

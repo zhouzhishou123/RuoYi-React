@@ -1,6 +1,6 @@
 import httpBaseQuery from '@/utils/httpBaseQuery';
 import { createApi } from '@reduxjs/toolkit/query/react';
-export const authSlice = createApi({
+export const querySlice = createApi({
   reducerPath: 'auth',
   baseQuery: httpBaseQuery(),
   endpoints: builder => ({
@@ -15,4 +15,4 @@ export const authSlice = createApi({
   }),
 });
 
-export const { useGetUserInfoQuery, useGetRoutersQuery } = authSlice;
+export const { useGetUserInfoQuery, useGetRoutersQuery } = querySlice;

@@ -7,7 +7,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.use(
     session({
-      secret: process.env.SESSION_SECRET || '1234567890',
+      secret: process.env.SESSION_SECRET || '28534E8F',
       resave: false,
       rolling: true,
       saveUninitialized: true,
@@ -22,7 +22,8 @@ async function bootstrap() {
     origin: true,
     credentials: true,
   });
-  app.setGlobalPrefix('prod-api');
+  app.setGlobalPrefix(process.env.GLOBAL_PREFIX || 'api');
+  console.log(process.env);
 
   const config = new DocumentBuilder()
     .setTitle('admin management')

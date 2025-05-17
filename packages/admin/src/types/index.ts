@@ -15,3 +15,22 @@ export interface MenuRoute {
   perms: string | null; // 权限标识
   icon: string | null; // 菜单图标，默认为'#'
 }
+
+export type RouteConfig = {
+  id: string; // 路由ID
+  parentId: string; // 父路由ID
+  path: string; // 路由路径
+  component: string; // 组件路径
+  redirect: string; // 重定向路径
+  name: string; // 路由名称
+  hidden: boolean; // 是否在菜单隐藏
+  layout: string; // 布局
+  loader: string; // loader的文件路径
+  meta: {
+    title: string; // 标题
+    icon: string; // 图标
+    keepAlive: string; // 是否缓存
+    hiddenHeaderContent: string; // 是否隐藏头部内容
+    permission: string[]; // 权限
+  };
+};

@@ -1,4 +1,4 @@
-import RootProvider from '@/components/RootProvider';
+import EnhanceRootProvider from '@/components/EnhanceRootProvider';
 import useStore from '@/store';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
@@ -11,7 +11,7 @@ function App() {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <RootProvider />
+        <EnhanceRootProvider />
       </PersistGate>
     </Provider>
   );
