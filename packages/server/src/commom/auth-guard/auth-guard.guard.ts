@@ -3,6 +3,7 @@ import { UserPayload } from '@/types';
 import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { JsonWebTokenError, JwtService } from '@nestjs/jwt';
+import { ConfigService } from '@nestjs/config';
 import { Request } from 'express';
 
 // 扩展 Express 的 Request 类型
@@ -11,20 +12,23 @@ declare module 'express' {
     user?: UserPayload;
   }
 }
-
-const prefix = process.env.GLOBAL_PREFIX || 'api';
 // 接口白名单
-const whiteList = [
-  `/${prefix}/login`, // 登录接口
-  `/${prefix}/captchaImage`, // 验证码接口
-];
+const whiteList: string[] = [];
 
 @Injectable()
 export class AuthGuardGuard implements CanActivate {
+  private prefix: string;
   constructor(
     private readonly jwtService: JwtService,
     private reflector: Reflector,
-  ) { }
+    private configService: ConfigService,
+  ) {
+    this.prefix = this.configService.get('GLOBAL_PREFIX') || 'api';
+    whiteList.push(
+      `/${this.prefix}/login`, // 登录接口
+      `/${this.prefix}/captchaImage`, // 验证码接口
+    );
+  }
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest<Request>();
