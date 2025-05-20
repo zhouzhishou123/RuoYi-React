@@ -1,7 +1,7 @@
 import { RootState } from '@/store';
 import type { MenuProps } from 'antd';
 import { Menu } from 'antd';
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import SvgIcon from '../SvgIcom/SvgIcon';
@@ -52,6 +52,12 @@ const MenuBar: React.FC = () => {
     return keys;
   }, [menus, location, findKeysByPath]);
   const [current, setCurrent] = useState<string[]>(currentSelectedKeys);
+
+  // 路由变化时自动同步菜单选中状态
+  useEffect(() => {
+    setCurrent(currentSelectedKeys);
+  }, [currentSelectedKeys]);
+
   // 处理菜单点击
   const handleClick: MenuProps['onClick'] = ({ item, key }) => {
     navigate(item.props.fullpath);

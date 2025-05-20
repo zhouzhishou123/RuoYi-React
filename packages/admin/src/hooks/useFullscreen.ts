@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useCallback } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 const eventHandlers = [
   'fullscreenchange',
@@ -17,7 +17,6 @@ export const useFullscreen = (
     autoExit?: boolean;
   } = {},
 ) => {
-  // debugger;
   const { document = defaultDocument, autoExit = false } = options;
 
   const targetRef = useMemo(() => {
@@ -30,7 +29,7 @@ export const useFullscreen = (
 
   const [isFullscreen, setIsFullscreen] = useState(false);
 
-  let requestMethod = useMemo(() => {
+  const requestMethod = useMemo(() => {
     return [
       'requestFullscreen',
       'webkitRequestFullscreen',

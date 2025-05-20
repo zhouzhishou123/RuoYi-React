@@ -56,6 +56,13 @@ export function generateRouteObject(rawRoutes: RouteConfig[]): RouteObject[] {
           {
             path: item.path,
             element: loadView(item.component),
+            handle: {
+              menuName: item.menuName,
+              routeName: item.routeName,
+              icon: item.icon,
+              perms: item.perms,
+              path: item.path,
+            },
           },
         ];
       }
