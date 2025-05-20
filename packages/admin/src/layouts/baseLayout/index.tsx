@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Outlet } from 'react-router-dom';
 import styles from './base.layout.module.scss';
 import NavBar from '@/components/NavBar';
+import Breadcrumb from '@/components/Breadcrumb';
 const { Header, Content } = Layout;
 
 const BaseLayout: React.FC = () => {
@@ -27,16 +28,6 @@ const BaseLayout: React.FC = () => {
             className={collapsed ? 'collapsed' : ''}
           >
             <div className={styles.header}>
-              <Button
-                type="text"
-                icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-                onClick={() => dispatch(setCollapsed(!collapsed))}
-                style={{
-                  fontSize: '16px',
-                  width: 64,
-                  height: 64,
-                }}
-              />
               <NavBar />
             </div>
           </Header>

@@ -38,6 +38,13 @@ export function generateRouteObject(rawRoutes: RouteConfig[]): RouteObject[] {
     const route: RouteObject = {
       path: item.path,
       loader: authGuardLoader,
+      handle: {
+        menuName: item.menuName,
+        routeName: item.routeName,
+        icon: item.icon,
+        perms: item.perms,
+        path: item.path,
+      },
       element: item.layout ? loadView(item.layout) : loadView(item.component),
     };
     if (item.children && item.children.length > 0) {
