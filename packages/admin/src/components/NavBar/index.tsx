@@ -1,13 +1,13 @@
 import { RootState } from '@/store';
 import { logout } from '@/store/appSlice';
+import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
+import type { MenuProps } from 'antd';
 import { Avatar, Button, Dropdown, Space } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import type { MenuProps } from 'antd';
-import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
-import styles from './navbar.module.scss';
+import { setCollapsed } from '../../store/appSlice';
 import Breadcrumb from '../Breadcrumb';
 import Fullscreen from './components/Fullscreen';
-import { setCollapsed } from '../../store/appSlice';
+import styles from './navbar.module.scss';
 function Logout() {
   const dispatch = useDispatch();
   return <span onClick={() => dispatch(logout())}>退出登录</span>;
