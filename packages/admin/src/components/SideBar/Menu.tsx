@@ -9,7 +9,7 @@ import SvgIcon from '../SvgIcom/SvgIcon';
 type MenuItem = Required<MenuProps>['items'][number];
 
 function transformSvgComponent(menus: MenuItem[]) {
-  if (!menus || menus.length === 0) return;
+  if (!menus || menus.length === 0) return [];
   return menus.map(menu => {
     return {
       ...menu,

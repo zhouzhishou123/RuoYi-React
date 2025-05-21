@@ -10,6 +10,8 @@
     border: 1px solid #d9d9d9;
     border-radius: 4px;
     margin-right: 10px;
+    display: flex;
+    align-items: center;
     cursor: pointer;
     &:hover {
       background: #f0f0f0;
