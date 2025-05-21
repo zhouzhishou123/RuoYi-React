@@ -11,6 +11,7 @@ const initialState = {
   routes: [],
   menus: [],
   tagsView: [],
+  layoutMode: 'side', // 默认左侧菜单模式
 };
 
 const appSlice = createSlice({
@@ -52,6 +53,9 @@ const appSlice = createSlice({
       const pathname = action.payload;
       state.tagsView = state.tagsView.filter(item => item.pathname !== pathname);
     },
+    setLayoutMode: (state, action) => {
+      state.layoutMode = action.payload;
+    },
   },
 });
 
@@ -63,5 +67,6 @@ export const {
   setCollapsed,
   setTagsView,
   removeTagView,
+  setLayoutMode,
 } = appSlice.actions;
 export default appSlice.reducer;

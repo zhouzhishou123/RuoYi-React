@@ -1,0 +1,186 @@
+.settingContainer {
+  padding: 0;
+  user-select: none;
+}
+
+.layoutOptions {
+  width: 100%;
+}
+
+// 水平排列的导航模式选项
+.layoutOptionsHorizontal {
+  display: flex;
+  justify-content: space-around;
+  padding: 0 12px;
+  width: 100%;
+  gap: 8px;
+}
+
+.optionItemHorizontal {
+  cursor: pointer;
+  padding: 10px 5px;
+  border-radius: 6px;
+  transition: all 0.3s;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  border: 2px solid transparent;
+
+  &:hover {
+    background-color: rgba(24, 144, 255, 0.05);
+  }
+
+  &.active {
+    background-color: rgba(24, 144, 255, 0.1);
+    border-color: #1890ff;
+
+    .optionBox {
+      border-color: #1890ff;
+      box-shadow: 0 0 6px rgba(24, 144, 255, 0.3);
+    }
+  }
+}
+
+.optionItem {
+  margin-bottom: 12px;
+  width: 100%;
+}
+
+.optionContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.optionBox {
+  width: 70px;
+  height: 55px;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid #f0f0f0;
+  margin-bottom: 8px;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s;
+
+  &:hover {
+    border-color: #1890ff;
+  }
+}
+
+.optionTitle {
+  font-size: 13px;
+  color: rgba(0, 0, 0, 0.85);
+}
+
+// 左侧菜单预览
+.sideMenuPreview {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 20%;
+  height: 100%;
+  background-color: #001529;
+  border-right: 1px solid #f0f0f0;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: -60px;
+    width: 60px;
+    height: 100%;
+    background-color: #fff;
+  }
+}
+
+// 顶部菜单预览
+.topMenuPreview {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 15px;
+  background-color: #001529;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: 0;
+    width: 100%;
+    height: 45px;
+    background-color: #fff;
+  }
+}
+
+// 混合菜单预览
+.mixMenuPreview {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 15px;
+  background-color: #001529;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: 0;
+    width: 20%;
+    height: 45px;
+    background-color: #f0f0f0;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: 20%;
+    width: 80%;
+    height: 45px;
+    background-color: #fff;
+  }
+}
+
+// 主题色块
+.themeColors {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.colorBlock {
+  width: 20px;
+  height: 20px;
+  border-radius: 2px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  transition: transform 0.2s;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  &.active {
+    box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+  }
+}
+
+// 其他设置项
+.otherSettings {
+  .settingItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+
+    span {
+      color: rgba(0, 0, 0, 0.85);
+    }
+  }
+}
