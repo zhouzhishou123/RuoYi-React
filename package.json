@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "pnpm -r run start:dev",
-    "docker:mysql":"docker run -p 6666:3306 --name ruoyi-mysql -e MYSQL_ROOT_PASSWORD=root -d mysql:8.4 --character-set-server=utf8mb4 --collation-server=utf8mb4_utf8mb4_general_ci",
+    "docker:mysql": "docker run -p 6666:3306 --name ruoyi-react -e MYSQL_ROOT_PASSWORD=root -d mysql:8.4 --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci",
     "db": "rm -rf packages/server/src/entities & npx typeorm-model-generator -h localhost -d ry-vue -p 3306 -u root -x root -e mysql -o packages/server/src/entities --noConfig true --ce pascal --cp camel",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",

@@ -9,7 +9,6 @@ function RootProvider() {
     if (routes.length === 0) {
       return createBrowserRouter(generateDynamicRoutes(constantRoutes));
     }
-    //const routeConfig = generateRouteObject([...routes, ...constantRoutes]);
     return createBrowserRouter(generateRouteObject([...routes, ...constantRoutes]));
   }, [routes]);
   return (

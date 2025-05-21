@@ -1,7 +1,7 @@
-import { generateMenu, buildRouteTree } from '@/permission/generateRoutes';
+import { buildRouteTree, generateMenu } from '@/permission/generateRoutes';
+import { removeAccessToken } from '@/utils/storage';
 import { createSlice } from '@reduxjs/toolkit';
 import { cloneDeep } from 'lodash-es';
-import { removeAccessToken } from '@/utils/storage';
 
 const initialState = {
   collapsed: false,
@@ -10,6 +10,8 @@ const initialState = {
   roles: [],
   routes: [],
   menus: [],
+  tagsView: [],
+  layoutMode: 'side', // 默认左侧菜单模式
 };
 
 const appSlice = createSlice({
@@ -38,9 +40,33 @@ const appSlice = createSlice({
       state.roles = [];
       state.routes = [];
       state.menus = [];
+      state.tagsView = [];
+    },
+    setTagsView: (state, action) => {
+      const { pathname, title } = action.payload;
+      const isExist = state.tagsView.some(item => item.pathname === pathname);
+      if (!isExist) {
+        state.tagsView.push({ pathname, title });
+      }
+    },
+    removeTagView: (state, action) => {
+      const pathname = action.payload;
+      state.tagsView = state.tagsView.filter(item => item.pathname !== pathname);
+    },
+    setLayoutMode: (state, action) => {
+      state.layoutMode = action.payload;
     },
   },
 });
 
-export const { setUserInfo, setRoles, logout, setRoutes, setCollapsed } = appSlice.actions;
+export const {
+  setUserInfo,
+  setRoles,
+  logout,
+  setRoutes,
+  setCollapsed,
+  setTagsView,
+  removeTagView,
+  setLayoutMode,
+} = appSlice.actions;
 export default appSlice.reducer;

@@ -23,7 +23,6 @@ async function bootstrap() {
     credentials: true,
   });
   app.setGlobalPrefix(process.env.GLOBAL_PREFIX || 'api');
-  console.log(process.env);
 
   const config = new DocumentBuilder()
     .setTitle('admin management')
