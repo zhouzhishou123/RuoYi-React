@@ -1,5 +1,5 @@
-import SvgIcon from '../../SvgIcom/SvgIcon';
-import { useFullscreen } from '../../../hooks/useFullscreen';
+import SvgIcon from '@/components/SvgIcon/SvgIcon';
+import { useFullscreen } from '@/hooks/useFullscreen';
 
 const Fullscreen: React.FC = () => {
   const { isFullscreen, toggle } = useFullscreen();

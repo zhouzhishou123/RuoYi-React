@@ -4,7 +4,7 @@ import { Menu } from 'antd';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
-import SvgIcon from '../SvgIcom/SvgIcon';
+import SvgIcon from '../SvgIcon/SvgIcon';
 
 // 扩展 MenuItem 类型，添加所需的属性
 interface ExtendedMenuItem {
