@@ -22,7 +22,11 @@ const BaseLayout: React.FC = () => {
       </div>
     );
   } else if (layoutMode === 'mix') {
-    return <MixLayout />;
+    return (
+      <div className={styles.baseLayout}>
+        <MixLayout />
+      </div>
+    );
   }
 };
 
