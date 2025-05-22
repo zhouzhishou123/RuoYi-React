@@ -1,48 +1,29 @@
-import NavBar from '@/components/NavBar';
-import SideBar from '@/components/SideBar';
-import TagsView from '@/components/TagsView';
 import { RootState } from '@/store';
-import { Layout, theme } from 'antd';
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { Outlet } from 'react-router-dom';
 import styles from './base.layout.module.scss';
-const { Header, Content } = Layout;
+import SideLayout from '../sideLayout';
+import MixLayout from '../mixLayout';
+import TopLayout from '../topLayout';
+import { useAppSelector } from '@/store';
 
 const BaseLayout: React.FC = () => {
-  const collapsed = useSelector((state: RootState) => state.app.collapsed);
-  const {
-    token: { colorBgContainer, borderRadiusLG },
-  } = theme.useToken();
+  const layoutMode = useAppSelector((state: RootState) => state.app.layoutMode);
 
-  return (
-    <div className={styles.baseLayout}>
-      <Layout>
-        <SideBar />
-        <Layout className={`main-layout ${collapsed ? 'collapsed' : ''}`}>
-          <Header
-            style={{ padding: 0, background: colorBgContainer }}
-            className={collapsed ? 'collapsed' : ''}
-          >
-            <div className={styles.header}>
-              <NavBar />
-            </div>
-          </Header>
-          <TagsView />
-          <div className="main-content">
-            <Content
-              style={{
-                background: colorBgContainer,
-                borderRadius: borderRadiusLG,
-              }}
-            >
-              <Outlet />
-            </Content>
-          </div>
-        </Layout>
-      </Layout>
-    </div>
-  );
+  if (layoutMode === 'side') {
+    return (
+      <div className={styles.baseLayout}>
+        <SideLayout />
+      </div>
+    );
+  } else if (layoutMode === 'top') {
+    return (
+      <div className={styles.baseLayout}>
+        <TopLayout />
+      </div>
+    );
+  } else if (layoutMode === 'mix') {
+    return <MixLayout />;
+  }
 };
 
 export default BaseLayout;
