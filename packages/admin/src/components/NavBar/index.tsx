@@ -25,7 +25,9 @@ function NavBar() {
         />
         <Breadcrumb />
       </div>
-      <NavRightAction />
+      <div className={styles.navbarRight}>
+        <NavRightAction />
+      </div>
     </div>
   );
 }

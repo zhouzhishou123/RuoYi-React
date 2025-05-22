@@ -17,7 +17,7 @@ const BaseLayout: React.FC = () => {
     );
   } else if (layoutMode === 'top') {
     return (
-      <div className={styles.baseLayout}>
+      <div>
         <TopLayout />
       </div>
     );

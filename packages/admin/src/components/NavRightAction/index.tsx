@@ -31,7 +31,7 @@ function NavRightAction() {
     setOpen(false);
   };
   return (
-    <div className={styles.navbarRight}>
+    <>
       <Fullscreen />
       <Dropdown menu={{ items }}>
         <a onClick={e => e.preventDefault()}>
@@ -47,7 +47,7 @@ function NavRightAction() {
         style={{ marginLeft: '15px', cursor: 'pointer' }}
       />
       <DrawerSetting open={open} setOpen={onClose} />
-    </div>
+    </>
   );
 }
 
