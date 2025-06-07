@@ -1,19 +1,24 @@
+import Menu from '@/components/Menu';
 import { RootState } from '@/store';
+import { transformSvgComponent } from '@/utils';
 import { Layout } from 'antd';
-import { useEffect } from 'react';
+import { useLayoutEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import Menu from './Menu';
 const { Sider } = Layout;
-function SideBar() {
+function SideBar(props) {
   const collapsed = useSelector((state: RootState) => state.app.collapsed);
+  const menusState: MenuItem[] = useSelector((state: RootState) => state.app.menus);
+  const menuList = useMemo(() => {
+    return transformSvgComponent(menusState);
+  }, [menusState]);
   // 设置侧边栏宽度的 CSS 变量
-  useEffect(() => {
+  useLayoutEffect(() => {
     document.documentElement.style.setProperty('--sider-width', collapsed ? '80px' : '200px');
   }, [collapsed]);
   return (
     <Sider trigger={null} collapsible collapsed={collapsed}>
       <div className="logo-container">{!collapsed ? 'RuoYi-React Admin' : 'RRA'}</div>
-      <Menu />
+      <Menu menus={props.menus || menuList} />
     </Sider>
   );
 }

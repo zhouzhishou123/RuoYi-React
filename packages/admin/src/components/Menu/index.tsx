@@ -1,10 +1,7 @@
-import { RootState } from '@/store';
 import type { MenuProps } from 'antd';
 import { Menu } from 'antd';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
-import SvgIcon from '../SvgIcon/SvgIcon';
 
 // 扩展 MenuItem 类型，添加所需的属性
 interface ExtendedMenuItem {
@@ -17,18 +14,6 @@ interface ExtendedMenuItem {
 }
 
 type MenuItem = ExtendedMenuItem;
-
-function transformSvgComponent(menus: MenuItem[]) {
-  if (!menus || menus.length === 0) return [];
-  return menus.map(menu => {
-    return {
-      ...menu,
-      icon: typeof menu.icon === 'string' ? <SvgIcon name={menu.icon} /> : menu.icon,
-      children: menu.children ? transformSvgComponent(menu.children) : undefined,
-    };
-  });
-}
-
 /**
  * 递归查找当前路径所在的菜单项，并返回所有父级菜单的key
  * @param menus 菜单列表
@@ -78,15 +63,14 @@ function findOpenKeysByPath(menus: MenuItem[], path: string): string[] {
   return [...new Set(keys)]; // 去重
 }
 
-const MenuBar: React.FC = () => {
+const MenuBar: React.FC<{
+  theme: 'dark' | 'light';
+  mode: 'inline' | 'vertical' | 'horizontal';
+  menus: MenuItem[];
+}> = ({ theme = 'dark', mode = 'inline', menus, ...rest }) => {
   const location = useLocation();
   const navigate = useNavigate();
-  const menus: MenuItem[] = useSelector((state: RootState) => state.app.menus);
   const [openKeys, setOpenKeys] = useState<string[]>([]);
-  const menuList = useMemo(() => {
-    return transformSvgComponent(menus);
-  }, [menus]);
-
   // 路由变化时，自动展开对应的菜单
   useEffect(() => {
     if (menus.length > 0) {
@@ -152,7 +136,6 @@ const MenuBar: React.FC = () => {
     const clickedItem = findMenuItem(menus, e.key);
     if (clickedItem && clickedItem.fullpath) {
       navigate(clickedItem.fullpath);
-      setCurrent([e.key]);
     }
   };
 
@@ -163,14 +146,15 @@ const MenuBar: React.FC = () => {
 
   return (
     <Menu
-      onClick={handleClick}
-      defaultSelectedKeys={defaultSelectedKeys}
-      theme="dark"
-      openKeys={openKeys}
-      onOpenChange={handleOpenChange}
-      mode="inline"
-      selectedKeys={current}
-      items={menuList}
+      {...rest}
+      onClick={rest.onClick || handleClick}
+      defaultSelectedKeys={rest.defaultSelectedKeys || defaultSelectedKeys}
+      theme={theme}
+      openKeys={rest.openKeys || openKeys}
+      onOpenChange={rest.onOpenChange || handleOpenChange}
+      mode={mode}
+      selectedKeys={rest.selectedKeys || current}
+      items={menus}
     />
   );
 };

@@ -1,0 +1,39 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  width: 100%;
+  color: #fff;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.navbar-right {
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.navbar-menu {
+  flex: 1;
+}
+
+.navbar-menu {
+  padding: 0 15px;
+}
+
+.content {
+  padding: 15px;
+  height: calc(100vh - 50px);
+}
+
+:global(.ant-layout-header) {
+  padding: 0 15px;
+  height: 50px;
+  line-height: 50px;
+}
