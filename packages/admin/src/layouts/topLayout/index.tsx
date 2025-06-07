@@ -28,7 +28,9 @@ function TopLayout() {
         </div>
       </Header>
       <Content>
-        <Outlet />
+        <div className={styles.content}>
+          <Outlet />
+        </div>
       </Content>
     </Layout>
   );

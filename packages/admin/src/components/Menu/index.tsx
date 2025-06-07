@@ -136,7 +136,6 @@ const MenuBar: React.FC<{
     const clickedItem = findMenuItem(menus, e.key);
     if (clickedItem && clickedItem.fullpath) {
       navigate(clickedItem.fullpath);
-      setCurrent([e.key]);
     }
   };
 

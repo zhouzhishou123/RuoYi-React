@@ -1,10 +1,9 @@
-import { RootState } from '@/store';
+import { RootState, useAppSelector } from '@/store';
 import React from 'react';
-import styles from './base.layout.module.scss';
-import SideLayout from '../sideLayout';
 import MixLayout from '../mixLayout';
+import SideLayout from '../sideLayout';
 import TopLayout from '../topLayout';
-import { useAppSelector } from '@/store';
+import styles from './base.layout.module.scss';
 
 const BaseLayout: React.FC = () => {
   const layoutMode = useAppSelector((state: RootState) => state.app.layoutMode);

@@ -5,7 +5,7 @@ import { Layout } from 'antd';
 import { useLayoutEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 const { Sider } = Layout;
-function SideBar() {
+function SideBar(props) {
   const collapsed = useSelector((state: RootState) => state.app.collapsed);
   const menusState: MenuItem[] = useSelector((state: RootState) => state.app.menus);
   const menuList = useMemo(() => {
@@ -18,7 +18,7 @@ function SideBar() {
   return (
     <Sider trigger={null} collapsible collapsed={collapsed}>
       <div className="logo-container">{!collapsed ? 'RuoYi-React Admin' : 'RRA'}</div>
-      <Menu menus={menuList} />
+      <Menu menus={props.menus || menuList} />
     </Sider>
   );
 }
