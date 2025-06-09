@@ -7,7 +7,7 @@ export class MenuService {
   constructor(
     @InjectRepository(SysMenu)
     private readonly menuRepository: Repository<SysMenu>,
-  ) { }
+  ) {}
   // 查询所有菜单列表
   async findAllMenus(): Promise<SysMenu[]> {
     return this.menuRepository.find({

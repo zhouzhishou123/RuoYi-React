@@ -1,11 +1,14 @@
 import Menu from '@/components/Menu';
+import { MenuItem } from '@/types';
 import { RootState } from '@/store';
 import { transformSvgComponent } from '@/utils';
 import { Layout } from 'antd';
 import { useLayoutEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
+import { MenuBarProps } from '@/types';
 const { Sider } = Layout;
-function SideBar(props) {
+function SideBar(props: MenuBarProps) {
+  const { menus, ...rest } = props;
   const collapsed = useSelector((state: RootState) => state.app.collapsed);
   const menusState: MenuItem[] = useSelector((state: RootState) => state.app.menus);
   const menuList = useMemo(() => {
@@ -18,7 +21,7 @@ function SideBar(props) {
   return (
     <Sider trigger={null} collapsible collapsed={collapsed}>
       <div className="logo-container">{!collapsed ? 'RuoYi-React Admin' : 'RRA'}</div>
-      <Menu menus={props.menus || menuList} />
+      <Menu menus={menus || menuList} {...rest} mode="inline" />
     </Sider>
   );
 }

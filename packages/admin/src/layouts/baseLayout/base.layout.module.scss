@@ -46,8 +46,7 @@
         }
 
         .main-content {
-          height: calc(100vh - 64px);
-          margin-top: 64px;
+          margin-top: 40px;
           padding: 24px;
           overflow-y: auto;
 
@@ -55,7 +54,7 @@
             background: #fff;
             padding: 24px;
             border-radius: 4px;
-            min-height: calc(100vh - 64px - 48px);
+            min-height: calc(100vh - 50px - 48px);
           }
         }
       }
@@ -63,7 +62,7 @@
 
     /* Logo 样式 */
     .logo-container {
-      height: 64px;
+      height: 50px;
       padding: 16px;
       display: flex;
       align-items: center;

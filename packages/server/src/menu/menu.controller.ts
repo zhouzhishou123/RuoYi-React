@@ -4,7 +4,7 @@ import { success } from '../utils/Res';
 import { MenuService } from './menu.service';
 @Controller('menu')
 export class MenuController {
-  constructor(private readonly menuService: MenuService) { }
+  constructor(private readonly menuService: MenuService) {}
   // 查询所有菜单列表
   @Get('list')
   async findAllMenus() {

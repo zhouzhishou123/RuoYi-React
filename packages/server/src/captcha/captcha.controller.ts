@@ -5,7 +5,7 @@ import { AuthService } from '../auth/auth.service';
 import { success } from '../utils/Res';
 @Controller('captchaImage')
 export class CaptchaController {
-  constructor(private readonly authService: AuthService) { }
+  constructor(private readonly authService: AuthService) {}
   @ApiOperation({ summary: '/captchaImage', description: '获取验证码' })
   @Get()
   getCaptcha(@Session() session: { code: string }) {

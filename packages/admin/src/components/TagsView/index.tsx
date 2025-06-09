@@ -52,6 +52,9 @@ function TagsView() {
           {item.title}
           {item.pathname !== '/' && (
             <CloseOutlined
+              style={{
+                color: item.pathname === location.pathname ? '#fff' : '#000',
+              }}
               className={styles.closeIcon}
               onClick={e => {
                 e.stopPropagation();

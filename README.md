@@ -9,21 +9,21 @@
 **优点**  
 ✔️ 开箱即用，企业级功能完善  
 **缺点**  
-✖️ 黑盒化严重，定制困难  
+✖️ 黑盒化严重，定制困难
 
-### 2. Ant Design Pro  
+### 2. Ant Design Pro
 
 **优点**  
 ✔️ 快速搭建中后台系统  
 **缺点**  
-✖️ 过度封装，新手难理解底层  
+✖️ 过度封装，新手难理解底层
 
-### 3. Dva  
+### 3. Dva
 
 **优点**  
 ✔️ 简化Redux，减少样板代码  
 **缺点**  
-✖️ 学习曲线陡，依赖Redux生态  
+✖️ 学习曲线陡，依赖Redux生态
 
 ## 项目初衷
 
@@ -46,11 +46,11 @@ RuoYi-React项目的初衷就是打造一个**属于React生态的若依**，提
 
 基于经典的 RuoYi-Vue 思想，RuoYi-React 全面升级为前后端分离架构，采用 React 18 + NestJS 最新技术栈打造，融合现代前端体验与强大后端能力，助力中后台系统高效开发。
 
-* 前端：React18、React Router v6、Redux Toolkit、Ant Design
-* 后端：NestJS、TypeORM、MySQL、TypeScript
-* 权限：基于RBAC（Role-Based Access Control）模型，支持菜单权限、按钮权限、数据权限
+- 前端：React18、React Router v6、Redux Toolkit、Ant Design
+- 后端：NestJS、TypeORM、MySQL、TypeScript
+- 权限：基于RBAC（Role-Based Access Control）模型，支持菜单权限、按钮权限、数据权限
 
-* 特色：代码简洁、架构清晰、组件封装、开箱即用
+- 特色：代码简洁、架构清晰、组件封装、开箱即用
 
 ## 开发状态 & 开源邀请
 
@@ -60,10 +60,10 @@ RuoYi-React项目的初衷就是打造一个**属于React生态的若依**，提
 >
 > **🔥 诚邀各位开发者加入开源贡献:**
 >
-> * 无论您是前端还是后端开发者，都可以参与进来
-> * 欢迎提交Issue、PR或讨论新功能
-> * 如发现问题或有建议，请[提交Issue](https://github.com/zhouzhishou/ice-frog/issues)
-> * 对代码有任何改进想法都非常欢迎！
+> - 无论您是前端还是后端开发者，都可以参与进来
+> - 欢迎提交Issue、PR或讨论新功能
+> - 如发现问题或有建议，请[提交Issue](https://github.com/zhouzhishou/ice-frog/issues)
+> - 对代码有任何改进想法都非常欢迎！
 >
 > 让我们一起打造React生态中的"若依"，为社区构建一个真正实用的企业级后台管理系统框架！
 
@@ -88,41 +88,41 @@ RuoYi-React项目的初衷就是打造一个**属于React生态的若依**，提
 
 ## 在线体验
 
-* 演示地址：<https://www.ice-frog.com> (正在搭建中)
-* 文档地址：<https://www.ice-frog.com> (正在搭建中)
+- 演示地址：<https://www.ice-frog.com> (正在搭建中)
+- 文档地址：<https://www.ice-frog.com> (正在搭建中)
 
 ## 技术选型
 
 ### 前端技术
 
-| 技术 | 说明 | 官网 |
-| --- | --- | --- |
-| React | 前端框架 | [https://react.dev/](https://react.dev/) |
-| React Router | 路由框架 | [https://reactrouter.com/](https://reactrouter.com/) |
-| Redux Toolkit | 状态管理工具 | [https://redux-toolkit.js.org/](https://redux-toolkit.js.org/) |
-| Ant Design | UI组件库 | [https://ant.design/](https://ant.design/) |
-| TypeScript | JavaScript超集 | [https://www.typescriptlang.org/](https://www.typescriptlang.org/) |
-| Vite | 构建工具 | [https://vitejs.dev/](https://vitejs.dev/) |
-| ESLint | 代码检查工具 | [https://eslint.org/](https://eslint.org/) |
-| Axios | HTTP客户端 | [https://axios-http.com/](https://axios-http.com/) |
+| 技术          | 说明           | 官网                                                               |
+| ------------- | -------------- | ------------------------------------------------------------------ |
+| React         | 前端框架       | [https://react.dev/](https://react.dev/)                           |
+| React Router  | 路由框架       | [https://reactrouter.com/](https://reactrouter.com/)               |
+| Redux Toolkit | 状态管理工具   | [https://redux-toolkit.js.org/](https://redux-toolkit.js.org/)     |
+| Ant Design    | UI组件库       | [https://ant.design/](https://ant.design/)                         |
+| TypeScript    | JavaScript超集 | [https://www.typescriptlang.org/](https://www.typescriptlang.org/) |
+| Vite          | 构建工具       | [https://vitejs.dev/](https://vitejs.dev/)                         |
+| ESLint        | 代码检查工具   | [https://eslint.org/](https://eslint.org/)                         |
+| Axios         | HTTP客户端     | [https://axios-http.com/](https://axios-http.com/)                 |
 
 ### 后端技术
 
-| 技术 | 说明 | 官网 |
-| --- | --- | --- |
-| NestJS | 后端框架 | [https://nestjs.com/](https://nestjs.com/) |
-| TypeORM | ORM框架 | [https://typeorm.io/](https://typeorm.io/) |
-| MySQL | 关系型数据库 | [https://www.mysql.com/](https://www.mysql.com/) |
-| Redis | 缓存数据库 | [https://redis.io/](https://redis.io/) |
-| JWT | 认证授权 | [https://jwt.io/](https://jwt.io/) |
-| Swagger | API文档生成 | [https://swagger.io/](https://swagger.io/) |
+| 技术       | 说明           | 官网                                                               |
+| ---------- | -------------- | ------------------------------------------------------------------ |
+| NestJS     | 后端框架       | [https://nestjs.com/](https://nestjs.com/)                         |
+| TypeORM    | ORM框架        | [https://typeorm.io/](https://typeorm.io/)                         |
+| MySQL      | 关系型数据库   | [https://www.mysql.com/](https://www.mysql.com/)                   |
+| Redis      | 缓存数据库     | [https://redis.io/](https://redis.io/)                             |
+| JWT        | 认证授权       | [https://jwt.io/](https://jwt.io/)                                 |
+| Swagger    | API文档生成    | [https://swagger.io/](https://swagger.io/)                         |
 | TypeScript | JavaScript超集 | [https://www.typescriptlang.org/](https://www.typescriptlang.org/) |
 
 ## 环境要求
 
-* Node.js 16+
-* MySQL 5.7+
-* Redis 6.0+
+- Node.js 16+
+- MySQL 5.7+
+- Redis 6.0+
 
 ## 快速开始
 
@@ -198,7 +198,7 @@ ice-frog/
 
 项目运行截图正在准备中...
 
-<!-- 
+<!--
 <table>
     <tr>
         <td><img src="docs/images/screenshot1.png"/></td>
@@ -213,9 +213,9 @@ ice-frog/
 
 ## 特别鸣谢
 
-* [RuoYi-Vue](https://gitee.com/y_project/RuoYi-Vue) - 为本项目提供了灵感与参考
-* [Ant Design](https://ant.design/) - 优秀的UI组件库
-* [NestJS](https://nestjs.com/) - 构建高效、可靠和可扩展的服务器端应用程序的框架
+- [RuoYi-Vue](https://gitee.com/y_project/RuoYi-Vue) - 为本项目提供了灵感与参考
+- [Ant Design](https://ant.design/) - 优秀的UI组件库
+- [NestJS](https://nestjs.com/) - 构建高效、可靠和可扩展的服务器端应用程序的框架
 
 ## 版本记录
 
@@ -235,12 +235,12 @@ ice-frog/
 
 ## 联系我们
 
-* 交流社区：欢迎通过 Issues 或 Discussions 与我们交流
-* 问题反馈：
+- 交流社区：欢迎通过 Issues 或 Discussions 与我们交流
+- 问题反馈：
 
-* <https://github.com/zhouzhishou123/RuoYi-React/issues>
+- <https://github.com/zhouzhishou123/RuoYi-React/issues>
 
-* <https://gitee.com/zhouzhishou/RuoYi-React/issues>
+- <https://gitee.com/zhouzhishou/RuoYi-React/issues>
 
 ## 捐赠支持
 

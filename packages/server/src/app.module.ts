@@ -46,4 +46,4 @@ import { UserModule } from './user/user.module';
   controllers: [MenuController],
   providers: [{ provide: APP_GUARD, useClass: AuthGuardGuard }],
 })
-export class AppModule { }
+export class AppModule {}

@@ -4,6 +4,7 @@ import { setAccessToken } from '@/utils/storage';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Card, Form, Input, message } from 'antd';
 import React, { useEffect, useState } from 'react';
+import { RootState } from '@/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styles from './index.module.scss';
@@ -54,13 +55,17 @@ const Login: React.FC = () => {
       password: values.password,
       code: values.code,
     };
-    const res = await loginApi(loginData);
-    setAccessToken(res.data.token);
-    const { data: userInfo } = await getUserInfoApi();
-    const { data: routers } = await getRoutersApi();
-    dispatch(setUserInfo(userInfo));
-    dispatch(setRoutes(routers));
-    message.success('登录成功！');
+    try {
+      const res = await loginApi(loginData);
+      setAccessToken(res.data.token);
+      const { data: userInfo } = await getUserInfoApi();
+      const { data: routers } = await getRoutersApi();
+      dispatch(setUserInfo(userInfo));
+      dispatch(setRoutes(routers));
+      message.success('登录成功！');
+    } catch (error) {
+      console.error('登录失败:', error);
+    }
   };
 
   return (
