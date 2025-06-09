@@ -8,8 +8,12 @@ function Dashboard() {
   return (
     <div>
       <h1>{count}</h1>
-      <Button onClick={() => dispatch(increment())}>Increment</Button>
-      <Button onClick={() => dispatch(decrement())}>Decrement</Button>
+      <Button style={{ marginRight: '15px' }} onClick={() => dispatch(increment())}>
+        Increment
+      </Button>
+      <Button style={{ marginRight: '15px' }} onClick={() => dispatch(decrement())}>
+        Decrement
+      </Button>
       <Button onClick={() => dispatch(incrementByAmount(10))}>Increment by 10</Button>
     </div>
   );

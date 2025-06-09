@@ -19,7 +19,7 @@ function SideBar(props: MenuBarProps) {
     document.documentElement.style.setProperty('--sider-width', collapsed ? '80px' : '200px');
   }, [collapsed]);
   return (
-    <Sider trigger={null} collapsible collapsed={collapsed}>
+    <Sider trigger={null} collapsible collapsed={collapsed} theme="light">
       <div className="logo-container">{!collapsed ? 'RuoYi-React Admin' : 'RRA'}</div>
       <Menu menus={menus || menuList} {...rest} mode="inline" />
     </Sider>

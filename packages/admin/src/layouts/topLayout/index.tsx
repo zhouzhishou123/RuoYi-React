@@ -20,14 +20,14 @@ function TopLayout() {
   };
   return (
     <Layout>
-      <Header>
+      <Header style={{ backgroundColor: '#fff' }}>
         <div className={styles.navbar}>
           <div className={styles.navbarLeft}>
             <span onClick={handleTest}>RuoYi-React Admin</span>
           </div>
           <MenuBar
             autoExpand={false}
-            theme="dark"
+            theme="light"
             className={styles.navbarMenu}
             menus={menuList}
             mode="horizontal"
