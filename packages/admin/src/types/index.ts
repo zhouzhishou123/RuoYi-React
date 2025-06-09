@@ -1,3 +1,5 @@
+import { MenuProps } from 'antd';
+export type MenuItem = Required<MenuProps>['items'][number];
 export interface MenuRoute {
   menuId: string; // 菜单ID
   parentId: string | null; // 父菜单ID，默认为'0'
@@ -34,3 +36,17 @@ export type RouteConfig = {
     permission: string[]; // 权限
   };
 };
+
+// 扩展 MenuItem 类型，添加所需的属性
+export type ExtendedMenuItem = MenuItem & {
+  key?: React.Key;
+  icon?: string | React.ReactNode;
+  children?: ExtendedMenuItem[];
+  label?: React.ReactNode;
+  type?: 'group';
+  fullpath?: string;
+};
+export interface MenuBarProps extends MenuProps {
+  autoExpand?: boolean; // 菜单是否自动展开
+  menus: ExtendedMenuItem[];
+}

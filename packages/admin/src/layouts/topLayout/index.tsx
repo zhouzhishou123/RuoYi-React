@@ -14,14 +14,24 @@ function TopLayout() {
   const menuList = useMemo(() => {
     return transformSvgComponent(menusState);
   }, [menusState]);
+
+  const handleTest = () => {
+    console.log('test');
+  };
   return (
     <Layout>
-      <Header>
+      <Header style={{ backgroundColor: '#fff' }}>
         <div className={styles.navbar}>
           <div className={styles.navbarLeft}>
-            <span>RuoYi-React Admin</span>
+            <span onClick={handleTest}>RuoYi-React Admin</span>
           </div>
-          <MenuBar theme="dark" className={styles.navbarMenu} menus={menuList} mode="horizontal" />
+          <MenuBar
+            autoExpand={false}
+            theme="light"
+            className={styles.navbarMenu}
+            menus={menuList}
+            mode="horizontal"
+          />
           <div className={styles.navbarRight}>
             <NavRightAction />
           </div>

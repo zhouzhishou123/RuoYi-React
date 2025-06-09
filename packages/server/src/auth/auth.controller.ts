@@ -14,7 +14,7 @@ export class AuthController {
     private readonly authService: AuthService,
     private readonly userService: UserService,
     private readonly configService: ConfigService,
-  ) { }
+  ) {}
 
   @ApiOperation({ summary: '/login', description: '登录接口' })
   @ApiBody({

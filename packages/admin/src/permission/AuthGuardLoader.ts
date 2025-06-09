@@ -18,9 +18,9 @@ async function authGuardLoader({ request }: { request: Request }) {
   } else {
     // 已登录
     // 访问登录页面重定向到之前的页面
-    if (url.pathname === '/login') {
-      return redirect(url.searchParams.get('redirect') || '/');
-    }
+    // if (url.pathname === '/login') {
+    //   return redirect(url.searchParams.get('redirect') || '/');
+    // }
   }
   return null;
 }

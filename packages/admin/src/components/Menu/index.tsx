@@ -2,29 +2,19 @@ import type { MenuProps } from 'antd';
 import { Menu } from 'antd';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { ExtendedMenuItem, MenuBarProps } from '@/types';
 
-// 扩展 MenuItem 类型，添加所需的属性
-interface ExtendedMenuItem {
-  key?: React.Key;
-  icon?: string | React.ReactNode;
-  children?: ExtendedMenuItem[];
-  label?: React.ReactNode;
-  type?: 'group';
-  fullpath?: string;
-}
-
-type MenuItem = ExtendedMenuItem;
 /**
  * 递归查找当前路径所在的菜单项，并返回所有父级菜单的key
  * @param menus 菜单列表
  * @param path 当前路径
  * @returns 所有需要展开的菜单key数组
  */
-function findOpenKeysByPath(menus: MenuItem[], path: string): string[] {
+function findOpenKeysByPath(menus: ExtendedMenuItem[], path: string): string[] {
   const keys: string[] = [];
 
   // 递归查找匹配的菜单项及其所有父级菜单
-  function findKeys(items: MenuItem[], parentKeys: string[] = []): boolean {
+  function findKeys(items: ExtendedMenuItem[], parentKeys: string[] = []): boolean {
     if (!items) return false;
 
     for (const item of items) {
@@ -63,24 +53,25 @@ function findOpenKeysByPath(menus: MenuItem[], path: string): string[] {
   return [...new Set(keys)]; // 去重
 }
 
-const MenuBar: React.FC<{
-  theme: 'dark' | 'light';
-  mode: 'inline' | 'vertical' | 'horizontal';
-  menus: MenuItem[];
-}> = ({ theme = 'dark', mode = 'inline', menus, ...rest }) => {
+interface MenuBarProps extends MenuProps {
+  autoExpand?: boolean; // 菜单是否自动展开
+  menus: ExtendedMenuItem[];
+}
+
+const MenuBar: React.FC<MenuBarProps> = ({ autoExpand = true, menus, ...rest }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const [openKeys, setOpenKeys] = useState<string[]>([]);
   // 路由变化时，自动展开对应的菜单
   useEffect(() => {
-    if (menus.length > 0) {
+    if (menus.length > 0 && autoExpand) {
       const currentPath = location.pathname;
       const keysToOpen = findOpenKeysByPath(menus, currentPath);
       if (keysToOpen.length > 0) {
         setOpenKeys(keysToOpen);
       }
     }
-  }, [location.pathname, menus]);
+  }, [location.pathname, menus, autoExpand]);
 
   const defaultSelectedKeys = useMemo(() => {
     if (menus && menus.length > 0) {
@@ -89,7 +80,7 @@ const MenuBar: React.FC<{
     return [];
   }, [menus]);
 
-  const findKeysByPath = useCallback((menu: MenuItem, path: string, keys: string[]) => {
+  const findKeysByPath = useCallback((menu: ExtendedMenuItem, path: string, keys: string[]) => {
     if (menu.fullpath === path) {
       keys.push(menu.key as string);
       return keys;
@@ -120,7 +111,7 @@ const MenuBar: React.FC<{
   // 处理菜单点击
   const handleClick: MenuProps['onClick'] = e => {
     // 查找被点击的菜单项
-    const findMenuItem = (items: MenuItem[], key: string): MenuItem | null => {
+    const findMenuItem = (items: ExtendedMenuItem[], key: string): ExtendedMenuItem | null => {
       for (const item of items) {
         if (item.key === key) {
           return item;
@@ -149,12 +140,10 @@ const MenuBar: React.FC<{
       {...rest}
       onClick={rest.onClick || handleClick}
       defaultSelectedKeys={rest.defaultSelectedKeys || defaultSelectedKeys}
-      theme={theme}
       openKeys={rest.openKeys || openKeys}
       onOpenChange={rest.onOpenChange || handleOpenChange}
-      mode={mode}
       selectedKeys={rest.selectedKeys || current}
-      items={menus}
+      items={menus as MenuItem[]}
     />
   );
 };

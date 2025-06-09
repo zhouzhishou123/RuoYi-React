@@ -1,12 +1,12 @@
 import { cloneDeep } from 'lodash-es';
 import { lazy } from 'react';
 import { RouteObject } from 'react-router-dom';
-import AuthGuard from '../permission/AuthGuard';
-import authGuardLoader from '../permission/authGuardLoader';
-import { RouteConfig } from '../types';
+import AuthGuard from '@/permission/AuthGuard';
+import authGuardLoader from '@/permission/authGuardLoader';
+import { RouteConfig } from '@/types';
 const pages = import.meta.glob('@/pages/**/*.tsx');
 const layouts = import.meta.glob('@/layouts/**/*.tsx', { eager: true, import: 'default' });
-export const loadView = view => {
+export const loadView = (view: string) => {
   let res = null;
   for (const path in pages) {
     const dir = path.split('pages/')[1].split('.tsx')[0];
@@ -57,7 +57,9 @@ export function generateRouteObject(rawRoutes: RouteConfig[]): RouteObject[] {
     if (item.children && item.children.length > 0) {
       if (item.redirect) {
         // 重定向路由
-        const targetRoute = item.children.find(child => child.component === item.redirect);
+        const targetRoute = item.children.find(
+          (child: RouteConfig) => child.component === item.redirect,
+        );
         if (targetRoute) {
           const cloneTargetRoute = cloneDeep(targetRoute);
           cloneTargetRoute.index = true;
@@ -93,9 +95,9 @@ export function generateRouteObject(rawRoutes: RouteConfig[]): RouteObject[] {
   });
 }
 // rawRoutes后台返回的
-export function generateDynamicRoutes(rawRoutes) {
+export function generateDynamicRoutes(rawRoutes: RouteConfig[]) {
   const routes = cloneDeep(rawRoutes);
-  const genSingleChildren = item => {
+  const genSingleChildren = (item: RouteConfig) => {
     return [
       {
         path: item.path,
@@ -103,7 +105,7 @@ export function generateDynamicRoutes(rawRoutes) {
       },
     ];
   };
-  return routes.map(item => {
+  return routes.map((item: RouteConfig) => {
     const route: RouteObject = {
       path: item.path,
       loader: authGuardLoader,
