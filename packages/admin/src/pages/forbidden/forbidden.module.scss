@@ -1,0 +1,27 @@
+.forbidden-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+	min-height: 500px;
+
+	:global(.ant-result) {
+		padding: 48px 32px;
+	}
+
+	:global(.ant-result-title) {
+		font-size: 72px;
+		font-weight: bold;
+		color: #ff4d4f;
+	}
+
+	:global(.ant-result-subtitle) {
+		font-size: 20px;
+		color: rgba(0, 0, 0, 0.65);
+		margin-top: 16px;
+	}
+
+	:global(.ant-result-extra) {
+		margin-top: 32px;
+	}
+}

@@ -133,7 +133,7 @@ RuoYi-React项目的初衷就是打造一个**属于React生态的若依**，提
 git clone https://gitee.com/zhouzhishou/ice-frog.git
 
 # 进入项目目录
-cd ice-frog
+cd RuoYi-React
 
 # 安装依赖
 pnpm install
@@ -146,8 +146,8 @@ pnpm start
 ```
 
 前端访问地址：<http://localhost:5173>  
-后端接口地址：<http://localhost:3000/prod-api>  
-接口文档地址：<http://localhost:3000/prod-api/docs>
+后端接口地址：<http://localhost:3000/api>  
+接口文档地址：<http://localhost:3000/api/docs>
 
 ### 生产环境
 
@@ -156,7 +156,7 @@ pnpm start
 pnpm build
 
 # 启动服务
-pnpm start:dev
+pnpm start
 ```
 
 ## 项目结构
