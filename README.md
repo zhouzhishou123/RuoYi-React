@@ -198,6 +198,12 @@ ice-frog/
 
 <table>
     <tr>
+        <td>
+        <b>账号: ry 密码：123</b>
+        <img src="docs/screenshot/login.png" alt="首页" width="100%"/>
+        </td>
+    </tr>
+    <tr>
         <td><img src="docs/screenshot/home.png" alt="首页" width="100%"/></td>
     </tr>
 </table>
