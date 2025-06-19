@@ -1,0 +1,30 @@
+<svg width="800" height="400" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景渐变 -->
+  <defs>
+    <linearGradient id="bg-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1890ff" />
+      <stop offset="100%" stop-color="#722ed1" />
+    </linearGradient>
+  </defs>
+
+  <!-- 背景 - 使用透明背景 -->
+  <rect width="800" height="400" fill="transparent" />
+
+  <!-- 中心图形 -->
+  <g transform="translate(400, 200)">
+    <!-- 六边形外框 -->
+    <polygon points="0,-120 104,-60 104,60 0,120 -104,60 -104,-60"
+             fill="none" stroke="#1890ff" stroke-width="8" opacity="0.8" />
+
+    <!-- 内部图形 -->
+    <circle cx="0" cy="0" r="40" fill="#1890ff" opacity="0.9" />
+    <polygon points="0,-80 69,-40 69,40 0,80 -69,40 -69,-40"
+             fill="none" stroke="#1890ff" stroke-width="4" opacity="0.6" />
+  </g>
+
+  <!-- 文字 -->
+  <text x="400" y="360" font-family="Arial, sans-serif" font-size="32"
+        font-weight="bold" fill="#1890ff" text-anchor="middle">
+    RuoYi Admin System
+  </text>
+</svg>

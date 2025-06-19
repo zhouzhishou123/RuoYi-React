@@ -39,6 +39,7 @@ function appendFullPathToRoutes(route: RouteConfig, parentpath: string = '') {
     label: route.menuName,
     key: route.menuId,
     path: route.path,
+    isFrame: route.isFrame,
     fullpath: route.fullpath,
   };
   // 叶子节点

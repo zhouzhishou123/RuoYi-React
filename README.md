@@ -196,20 +196,11 @@ ice-frog/
 
 ## 演示图
 
-项目运行截图正在准备中...
-
-<!--
 <table>
     <tr>
-        <td><img src="docs/images/screenshot1.png"/></td>
-        <td><img src="docs/images/screenshot2.png"/></td>
-    </tr>
-    <tr>
-        <td><img src="docs/images/screenshot3.png"/></td>
-        <td><img src="docs/images/screenshot4.png"/></td>
+        <td><img src="docs/screenshot/home.png" alt="首页" width="100%"/></td>
     </tr>
 </table>
--->
 
 ## 特别鸣谢
 
