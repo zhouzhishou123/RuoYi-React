@@ -123,8 +123,10 @@ const MenuBar: React.FC<MenuBarProps> = ({ autoExpand = true, menus, ...rest }) 
       }
       return null;
     };
-
     const clickedItem = findMenuItem(menus, e.key);
+    if ((clickedItem && clickedItem.isFrame == 0) || /^https?:\/\//.test(clickedItem.path)) {
+      return window.open(clickedItem.path, '_blank');
+    }
     if (clickedItem && clickedItem.fullpath) {
       navigate(clickedItem.fullpath);
     }

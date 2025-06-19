@@ -66,11 +66,11 @@ function DrawerSetting({ open, setOpen }: { open: boolean; setOpen: (open: boole
           </div>
         </div>
 
-        <Divider style={{ margin: '24px 0 16px 0' }}>
+        {/* <Divider style={{ margin: '24px 0 16px 0' }}>
           <Typography.Text strong>主题色</Typography.Text>
-        </Divider>
+        </Divider> */}
 
-        <div className={styles.themeColors} style={{ padding: '0 16px' }}>
+        {/* <div className={styles.themeColors} style={{ padding: '0 16px' }}>
           <Tooltip title="薄暮">
             <div
               className={`${styles.colorBlock} ${styles.active}`}
@@ -106,13 +106,13 @@ function DrawerSetting({ open, setOpen }: { open: boolean; setOpen: (open: boole
           <Tooltip title="酱紫">
             <div className={styles.colorBlock} style={{ backgroundColor: '#722ed1' }}></div>
           </Tooltip>
-        </div>
+        </div> */}
 
-        <Divider style={{ margin: '24px 0 16px 0' }}>
+        {/* <Divider style={{ margin: '24px 0 16px 0' }}>
           <Typography.Text strong>其他设置</Typography.Text>
-        </Divider>
+        </Divider> */}
 
-        <div className={styles.otherSettings} style={{ padding: '0 16px' }}>
+        {/* <div className={styles.otherSettings} style={{ padding: '0 16px' }}>
           <div className={styles.settingItem}>
             <span>固定头部</span>
             <Switch size="small" defaultChecked />
@@ -133,7 +133,7 @@ function DrawerSetting({ open, setOpen }: { open: boolean; setOpen: (open: boole
             <span>色弱模式</span>
             <Switch size="small" />
           </div>
-        </div>
+        </div> */}
       </div>
     </Drawer>
   );
