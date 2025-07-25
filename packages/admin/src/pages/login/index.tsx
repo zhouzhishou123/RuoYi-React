@@ -57,14 +57,29 @@ const Login: React.FC = () => {
     };
     try {
       const res = await loginApi(loginData);
-      setAccessToken(res.data.token);
-      const { data: userInfo } = await getUserInfoApi();
-      const { data: routers } = await getRoutersApi();
-      dispatch(setUserInfo(userInfo));
-      dispatch(setRoutes(routers));
-      message.success('登录成功！');
+      console.log('Login response:', res);
+
+      // 确保正确存储token
+      if (res.data && res.data.token) {
+        setAccessToken(res.data.token);
+        console.log('Token stored:', res.data.token);
+
+        const { data: userInfo } = await getUserInfoApi();
+        console.log('User info:', userInfo);
+
+        const { data: routers } = await getRoutersApi();
+        console.log('Routers:', routers);
+
+        dispatch(setUserInfo(userInfo));
+        dispatch(setRoutes(routers));
+        message.success('登录成功！');
+      } else {
+        console.error('Login response missing token:', res);
+        message.error('登录失败：未获取到令牌');
+      }
     } catch (error) {
       console.error('登录失败:', error);
+      message.error('登录失败，请检查用户名和密码');
     }
   };
 

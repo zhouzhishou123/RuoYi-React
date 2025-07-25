@@ -8,6 +8,7 @@ import {
   Param,
   Patch,
   Post,
+  Query,
   Req,
   UnauthorizedException,
 } from '@nestjs/common';
@@ -41,28 +42,77 @@ export class UserController {
     });
   }
 
-  @Post()
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.userService.create(createUserDto);
+  // 创建用户
+  @Post('user')
+  async create(@Body() createUserDto: CreateUserDto) {
+    const user = await this.userService.create(createUserDto);
+    return success(user);
   }
 
-  @Get('user')
-  getUserList() {
-    return this.userService.findAll();
+  // 获取用户列表
+  @Get('user/list')
+  async getUserList(
+    @Query('userName') userName?: string,
+    @Query('status') status?: string,
+    @Query('phonenumber') phonenumber?: string,
+  ) {
+    console.log('Received request for user list with query:', { userName, status, phonenumber });
+
+    try {
+      const users = await this.userService.findAll();
+      console.log(`Found ${users.length} users in database`);
+
+      // 根据查询条件过滤用户
+      let filteredUsers = users;
+
+      if (userName) {
+        filteredUsers = filteredUsers.filter(
+          (user) => user.userName.includes(userName) || user.nickName.includes(userName),
+        );
+      }
+
+      if (status) {
+        filteredUsers = filteredUsers.filter((user) => user.status === status);
+      }
+
+      if (phonenumber) {
+        filteredUsers = filteredUsers.filter(
+          (user) => user.phonenumber && user.phonenumber.includes(phonenumber),
+        );
+      }
+
+      console.log(`Returning ${filteredUsers.length} filtered users`);
+
+      return success({
+        rows: filteredUsers,
+        total: filteredUsers.length,
+      });
+    } catch (error) {
+      console.error('Error fetching user list:', error);
+      throw error;
+    }
   }
 
+  // 获取单个用户
   @Get('user/:id')
-  findOne(@Param('id') id: string) {
-    return this.userService.findOne(+id);
+  async findOne(@Param('id') id: string) {
+    const user = await this.userService.findOne(+id);
+    return success(user);
   }
 
-  @Patch('user/:id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.userService.update(updateUserDto);
+  // 更新用户
+  @Patch('user')
+  async update(@Body() updateUserDto: UpdateUserDto) {
+    const user = await this.userService.update(updateUserDto);
+    return success(user);
   }
 
+  // 删除用户
   @Delete('user/:id')
-  remove(@Param('id') id: string) {
-    return this.userService.remove(+id);
+  async remove(@Param('id') id: string) {
+    await this.userService.remove(+id);
+    return success({
+      message: '删除用户成功',
+    });
   }
 }
