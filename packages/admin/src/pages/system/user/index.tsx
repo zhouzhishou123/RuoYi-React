@@ -40,15 +40,12 @@ function User() {
   // 获取用户列表
   const fetchUserList = async (params = {}) => {
     setLoading(true);
-    console.log('Fetching user list with params:', params);
-    console.log('Current token:', getAccessToken());
 
     try {
       const res = await getUserList(params);
-      console.log('API response:', res);
 
       if (res.code === 200) {
-        setUserList(res.data.rows || []);
+        setUserList(res.data.list || []);
         setTotal(res.data.total || 0);
       }
     } catch (error) {

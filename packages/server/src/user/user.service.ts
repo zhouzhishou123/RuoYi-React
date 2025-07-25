@@ -139,4 +139,37 @@ export class UserService {
 
     return await this.userRepository.save(user);
   }
+
+  async findUserListByParams(params: any) {
+    const { userName, status, phonenumber, pageNum, pageSize } = params;
+    const skip = (pageNum - 1) * pageSize;
+    const queryBuilder = this.userRepository.createQueryBuilder('user');
+    queryBuilder.where('user.delFlag = :delFlag', { delFlag: '0' });
+    if (userName != null) {
+      queryBuilder.andWhere('user.userName LIKE :userName', { userName: `%${userName}%` });
+    }
+
+    if (status) {
+      queryBuilder.andWhere('user.status = :status', { status });
+    }
+
+    if (phonenumber) {
+      queryBuilder.andWhere('user.phonenumber LIKE :phonenumber', {
+        phonenumber: `%${phonenumber}%`,
+      });
+    }
+    // 排序
+    queryBuilder.orderBy(`user.${params.sortBy}`, params.sortOrder);
+    // 分页
+    queryBuilder.skip(skip).take(pageSize);
+
+    const [users, total] = await queryBuilder.getManyAndCount();
+
+    return {
+      list: users,
+      total,
+      pageNum,
+      pageSize,
+    };
+  }
 }
