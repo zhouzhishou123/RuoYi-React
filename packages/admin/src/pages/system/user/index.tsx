@@ -16,9 +16,38 @@ import {
 } from 'antd';
 import { DeleteOutlined, EditOutlined, PlusOutlined, SearchOutlined } from '@ant-design/icons';
 import { addUser, deleteUser, getUserList, updateUser } from '@/api/user';
-import { getAccessToken } from '@/utils/storage';
 
 const { Option } = Select;
+
+// 用户数据类型定义
+interface UserData {
+  userId: string;
+  userName: string;
+  nickName: string;
+  deptId?: string;
+  dept?: {
+    deptName: string;
+  };
+  phonenumber?: string;
+  email?: string;
+  sex?: string;
+  status: string;
+  remark?: string;
+  createTime?: string;
+  roles?: Array<{
+    roleId: string;
+    roleName: string;
+  }>;
+}
+
+// 搜索参数类型
+interface SearchParams {
+  userName?: string;
+  phonenumber?: string;
+  status?: string;
+  pageNum?: number;
+  pageSize?: number;
+}
 
 // 用户状态选项
 const statusOptions = [
@@ -29,20 +58,28 @@ const statusOptions = [
 function User() {
   // 状态定义
   const [loading, setLoading] = useState(false);
-  const [userList, setUserList] = useState<any[]>([]);
+  const [userList, setUserList] = useState<UserData[]>([]);
   const [total, setTotal] = useState(0);
+  const [pageNum, setPageNum] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
   const [searchForm] = Form.useForm();
   const [userForm] = Form.useForm();
   const [modalVisible, setModalVisible] = useState(false);
   const [modalTitle, setModalTitle] = useState('新增用户');
-  const [currentUser, setCurrentUser] = useState<any>(null);
+  const [currentUser, setCurrentUser] = useState<UserData | null>(null);
 
   // 获取用户列表
-  const fetchUserList = async (params = {}) => {
+  const fetchUserList = async (params: SearchParams = {}) => {
     setLoading(true);
 
+    const requestParams = {
+      ...params,
+      pageNum: params.pageNum || pageNum,
+      pageSize: params.pageSize || pageSize,
+    };
+
     try {
-      const res = await getUserList(params);
+      const res = await getUserList(requestParams);
 
       if (res.code === 200) {
         setUserList(res.data.list || []);
@@ -63,13 +100,34 @@ function User() {
   // 搜索处理
   const handleSearch = () => {
     const values = searchForm.getFieldsValue();
-    fetchUserList(values);
+    setPageNum(1); // 重置到第一页
+    fetchUserList({ ...values, pageNum: 1, pageSize });
   };
 
   // 重置搜索
   const handleReset = () => {
     searchForm.resetFields();
-    fetchUserList();
+    setPageNum(1);
+    fetchUserList({ pageNum: 1, pageSize });
+  };
+
+  // 分页变化处理
+  const handleTableChange = (pagination: {
+    current?: number;
+    pageSize?: number;
+    total?: number;
+  }) => {
+    const { current = 1, pageSize: newPageSize = 10 } = pagination;
+    const searchValues = searchForm.getFieldsValue();
+
+    setPageNum(current);
+    setPageSize(newPageSize);
+
+    fetchUserList({
+      ...searchValues,
+      pageNum: current,
+      pageSize: newPageSize,
+    });
   };
 
   // 打开新增用户模态框
@@ -81,7 +139,7 @@ function User() {
   };
 
   // 打开编辑用户模态框
-  const handleEdit = (record: any) => {
+  const handleEdit = (record: UserData) => {
     setModalTitle('编辑用户');
     setCurrentUser(record);
     userForm.setFieldsValue({
@@ -94,7 +152,7 @@ function User() {
       sex: record.sex,
       status: record.status,
       remark: record.remark,
-      roleIds: record.roles?.map((role: any) => role.roleId) || [],
+      roleIds: record.roles?.map(role => role.roleId) || [],
     });
     setModalVisible(true);
   };
@@ -105,7 +163,22 @@ function User() {
       const res = await deleteUser(userId);
       if (res.code === 200) {
         message.success('删除成功');
-        fetchUserList(searchForm.getFieldsValue());
+        // 如果当前页没有数据了，回到上一页
+        if (userList.length === 1 && pageNum > 1) {
+          const newPageNum = pageNum - 1;
+          setPageNum(newPageNum);
+          fetchUserList({
+            ...searchForm.getFieldsValue(),
+            pageNum: newPageNum,
+            pageSize,
+          });
+        } else {
+          fetchUserList({
+            ...searchForm.getFieldsValue(),
+            pageNum,
+            pageSize,
+          });
+        }
       }
     } catch (error) {
       console.error('删除用户失败', error);
@@ -127,7 +200,11 @@ function User() {
         if (res.code === 200) {
           message.success('更新成功');
           setModalVisible(false);
-          fetchUserList(searchForm.getFieldsValue());
+          fetchUserList({
+            ...searchForm.getFieldsValue(),
+            pageNum,
+            pageSize,
+          });
         }
       } else {
         // 新增用户
@@ -136,7 +213,11 @@ function User() {
         if (res.code === 200) {
           message.success('新增成功');
           setModalVisible(false);
-          fetchUserList(searchForm.getFieldsValue());
+          fetchUserList({
+            ...searchForm.getFieldsValue(),
+            pageNum,
+            pageSize,
+          });
         }
       }
     } catch (error) {
@@ -166,7 +247,7 @@ function User() {
       title: '部门',
       dataIndex: 'dept',
       key: 'dept',
-      render: (dept: any) => dept?.deptName || '-',
+      render: (dept: UserData['dept']) => dept?.deptName || '-',
     },
     {
       title: '手机',
@@ -190,7 +271,7 @@ function User() {
     {
       title: '操作',
       key: 'action',
-      render: (_: any, record: any) => (
+      render: (_: unknown, record: UserData) => (
         <Space>
           {record.userName !== 'admin' && (
             <>
@@ -273,10 +354,15 @@ function User() {
           rowKey="userId"
           loading={loading}
           pagination={{
+            current: pageNum,
+            pageSize: pageSize,
             total,
             showSizeChanger: true,
-            showTotal: total => `共 ${total} 条记录`,
+            showQuickJumper: true,
+            showTotal: (total, range) => `第 ${range[0]}-${range[1]} 条/共 ${total} 条记录`,
+            pageSizeOptions: ['10', '20', '50', '100'],
           }}
+          onChange={handleTableChange}
         />
       </Card>
 

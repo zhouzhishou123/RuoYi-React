@@ -20,6 +20,27 @@ import { addRole, deleteRole, getRoleList, updateRole, updateRoleStatus } from '
 
 const { Option } = Select;
 
+// 角色数据类型定义
+interface RoleData {
+  roleId: string;
+  roleName: string;
+  roleKey: string;
+  roleSort: number;
+  status: string;
+  remark?: string;
+  createTime?: string;
+  updateTime?: string;
+}
+
+// 搜索参数类型
+interface SearchParams {
+  roleName?: string;
+  roleKey?: string;
+  status?: string;
+  pageNum?: number;
+  pageSize?: number;
+}
+
 // 角色状态选项
 const statusOptions = [
   { label: '正常', value: '0' },
@@ -29,19 +50,28 @@ const statusOptions = [
 function Role() {
   // 状态定义
   const [loading, setLoading] = useState(false);
-  const [roleList, setRoleList] = useState<any[]>([]);
+  const [roleList, setRoleList] = useState<RoleData[]>([]);
   const [total, setTotal] = useState(0);
+  const [pageNum, setPageNum] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
   const [searchForm] = Form.useForm();
   const [roleForm] = Form.useForm();
   const [modalVisible, setModalVisible] = useState(false);
   const [modalTitle, setModalTitle] = useState('新增角色');
-  const [currentRole, setCurrentRole] = useState<any>(null);
+  const [currentRole, setCurrentRole] = useState<RoleData | null>(null);
 
   // 获取角色列表
-  const fetchRoleList = async (params = {}) => {
+  const fetchRoleList = async (params: SearchParams = {}) => {
     setLoading(true);
+
+    const requestParams = {
+      ...params,
+      pageNum: params.pageNum || pageNum,
+      pageSize: params.pageSize || pageSize,
+    };
+
     try {
-      const res = await getRoleList(params);
+      const res = await getRoleList(requestParams);
       if (res.code === 200) {
         setRoleList(res.data.list || []);
         setTotal(res.data.total || 0);
@@ -61,13 +91,34 @@ function Role() {
   // 搜索处理
   const handleSearch = () => {
     const values = searchForm.getFieldsValue();
-    fetchRoleList(values);
+    setPageNum(1); // 重置到第一页
+    fetchRoleList({ ...values, pageNum: 1, pageSize });
   };
 
   // 重置搜索
   const handleReset = () => {
     searchForm.resetFields();
-    fetchRoleList();
+    setPageNum(1);
+    fetchRoleList({ pageNum: 1, pageSize });
+  };
+
+  // 分页变化处理
+  const handleTableChange = (pagination: {
+    current?: number;
+    pageSize?: number;
+    total?: number;
+  }) => {
+    const { current = 1, pageSize: newPageSize = 10 } = pagination;
+    const searchValues = searchForm.getFieldsValue();
+
+    setPageNum(current);
+    setPageSize(newPageSize);
+
+    fetchRoleList({
+      ...searchValues,
+      pageNum: current,
+      pageSize: newPageSize,
+    });
   };
 
   // 打开新增角色模态框
@@ -79,7 +130,7 @@ function Role() {
   };
 
   // 打开编辑角色模态框
-  const handleEdit = (record: any) => {
+  const handleEdit = (record: RoleData) => {
     setModalTitle('编辑角色');
     setCurrentRole(record);
     roleForm.setFieldsValue({
@@ -99,7 +150,22 @@ function Role() {
       const res = await deleteRole(roleId);
       if (res.code === 200) {
         message.success('删除成功');
-        fetchRoleList(searchForm.getFieldsValue());
+        // 如果当前页没有数据了，回到上一页
+        if (roleList.length === 1 && pageNum > 1) {
+          const newPageNum = pageNum - 1;
+          setPageNum(newPageNum);
+          fetchRoleList({
+            ...searchForm.getFieldsValue(),
+            pageNum: newPageNum,
+            pageSize,
+          });
+        } else {
+          fetchRoleList({
+            ...searchForm.getFieldsValue(),
+            pageNum,
+            pageSize,
+          });
+        }
       }
     } catch (error) {
       console.error('删除角色失败', error);
@@ -113,7 +179,11 @@ function Role() {
       const res = await updateRoleStatus(roleId, newStatus);
       if (res.code === 200) {
         message.success(`${newStatus === '0' ? '启用' : '停用'}成功`);
-        fetchRoleList(searchForm.getFieldsValue());
+        fetchRoleList({
+          ...searchForm.getFieldsValue(),
+          pageNum,
+          pageSize,
+        });
       }
     } catch (error) {
       console.error('更新角色状态失败', error);
@@ -135,7 +205,11 @@ function Role() {
         if (res.code === 200) {
           message.success('更新成功');
           setModalVisible(false);
-          fetchRoleList(searchForm.getFieldsValue());
+          fetchRoleList({
+            ...searchForm.getFieldsValue(),
+            pageNum,
+            pageSize,
+          });
         }
       } else {
         // 新增角色
@@ -144,7 +218,11 @@ function Role() {
         if (res.code === 200) {
           message.success('新增成功');
           setModalVisible(false);
-          fetchRoleList(searchForm.getFieldsValue());
+          fetchRoleList({
+            ...searchForm.getFieldsValue(),
+            pageNum,
+            pageSize,
+          });
         }
       }
     } catch (error) {
@@ -174,13 +252,13 @@ function Role() {
       title: '显示顺序',
       dataIndex: 'roleSort',
       key: 'roleSort',
-      sorter: (a: any, b: any) => a.roleSort - b.roleSort,
+      sorter: (a: RoleData, b: RoleData) => a.roleSort - b.roleSort,
     },
     {
       title: '角色状态',
       dataIndex: 'status',
       key: 'status',
-      render: (status: string, record: any) => (
+      render: (status: string, record: RoleData) => (
         <Space>
           <Tag color={status === '0' ? 'green' : 'red'}>{status === '0' ? '正常' : '停用'}</Tag>
           {record.roleKey !== 'admin' && (
@@ -204,7 +282,7 @@ function Role() {
     {
       title: '操作',
       key: 'action',
-      render: (_: any, record: any) => (
+      render: (_: unknown, record: RoleData) => (
         <Space>
           {record.roleKey !== 'admin' && (
             <>
@@ -287,10 +365,15 @@ function Role() {
           rowKey="roleId"
           loading={loading}
           pagination={{
+            current: pageNum,
+            pageSize: pageSize,
             total,
             showSizeChanger: true,
-            showTotal: total => `共 ${total} 条记录`,
+            showQuickJumper: true,
+            showTotal: (total, range) => `第 ${range[0]}-${range[1]} 条/共 ${total} 条记录`,
+            pageSizeOptions: ['10', '20', '50', '100'],
           }}
+          onChange={handleTableChange}
         />
       </Card>
 
