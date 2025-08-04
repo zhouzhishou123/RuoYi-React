@@ -2,7 +2,9 @@ import { AuthenticatedRequest } from '@/types';
 import { Controller, Get, Param, Req, UnauthorizedException } from '@nestjs/common';
 import { success } from '../utils/Res';
 import { MenuService } from './menu.service';
+import { ApiBearerAuth } from '@nestjs/swagger';
 @Controller('menu')
+@ApiBearerAuth()
 export class MenuController {
   constructor(private readonly menuService: MenuService) {}
   // 查询所有菜单列表

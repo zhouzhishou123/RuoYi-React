@@ -16,8 +16,10 @@ import { Request } from 'express';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserService } from './user.service';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
 @SuccessResponse()
+@ApiBearerAuth()
 @Controller('system')
 export class UserController {
   private readonly pageNum = 1;

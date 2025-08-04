@@ -3,8 +3,10 @@ import { RoleService } from './role.service';
 import { SysRole } from '../entities/SysRole';
 import { success } from '../utils/Res';
 import { SuccessResponse } from '../commom/Decorator/success.response.decorator';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
 @SuccessResponse()
+@ApiBearerAuth()
 @Controller('system')
 export class RoleController {
   constructor(private readonly roleService: RoleService) {}

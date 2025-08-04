@@ -28,6 +28,7 @@ async function bootstrap() {
     .setTitle('admin management')
     .setDescription('Api 文档')
     .setVersion('1.0')
+    .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('doc', app, document);
