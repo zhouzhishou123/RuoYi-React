@@ -24,5 +24,8 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "prettier": "^3.2.5",
     "typeorm-model-generator": "^0.4.6"
+  },
+  "engines": {
+    "node": ">=20.0.0"
   }
 }

@@ -147,7 +147,7 @@ pnpm start
 
 前端访问地址：<http://localhost:5173>  
 后端接口地址：<http://localhost:3000/api>  
-接口文档地址：<http://localhost:3000/api/docs>
+接口文档地址：<http://localhost:3000/doc>
 
 ### 生产环境
 
