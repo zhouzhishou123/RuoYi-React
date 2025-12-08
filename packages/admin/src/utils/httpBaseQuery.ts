@@ -6,7 +6,10 @@ const httpBaseQuery = () => {
       const response = await http(data);
       return { data: response.data };
     } catch (error) {
-      throw new Error(error);
+      if (error instanceof Error) {
+        throw error;
+      }
+      throw new Error(String(error));
       // return {
       //   error: {
       //     status: error.status,

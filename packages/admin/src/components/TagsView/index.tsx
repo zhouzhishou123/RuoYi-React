@@ -7,6 +7,7 @@ import { useLocation, useMatches, useNavigate } from 'react-router-dom';
 import styles from './tagsView.module.scss';
 
 function TagsView() {
+  const collapsed = useAppSelector((state: RootState) => state.app.collapsed);
   const dispatch = useAppDispatch();
   const location = useLocation();
   const matches = useMatches();
@@ -77,7 +78,11 @@ function TagsView() {
   }, [location.pathname, dispatch, tagView]);
 
   return (
-    <div className={styles.tagsViewContainer} ref={containerRef} onWheel={handleWheel}>
+    <div
+      className={`${styles.tagsViewContainer} ${collapsed ? styles.collapsed : ''}`}
+      ref={containerRef}
+      onWheel={handleWheel}
+    >
       {sortedTagsView.map(item => (
         <div
           key={item.pathname}

@@ -5,7 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import * as dotenv from 'dotenv';
 import { AuthModule } from './auth/auth.module';
 import { CaptchaModule } from './captcha/captcha.module';
-import { AuthGuardGuard } from './commom/auth-guard/auth-guard.guard';
+import { AuthGuardGuard } from './common/auth-guard/auth-guard.guard';
 import { DeptModule } from './dept/dept.module';
 import { SysDept } from './entities/SysDept';
 import { SysMenu } from './entities/SysMenu';

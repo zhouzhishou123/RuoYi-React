@@ -1,14 +1,25 @@
 .tags-view-container {
-  position: relative;
-  top: 55px;
+  position: fixed;
+  top: 50px;
+  left: var(--sider-width);
+  width: calc(100% - var(--sider-width));
+  z-index: 98;
+  height: 40px;
   background: #fff;
-  padding: 5px;
+  padding: 5px 24px 5px 24px;
   display: flex;
-  margin-left: 24px;
-  margin-right: 28px;
   overflow-x: auto;
   white-space: nowrap;
   scrollbar-width: thin;
+  transition:
+    left 0.2s,
+    width 0.2s;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+
+  &.collapsed {
+    left: 80px;
+    width: calc(100% - 80px);
+  }
 
   /* 隐藏滚动条但保留滚动功能 */
   &::-webkit-scrollbar {
@@ -37,6 +48,7 @@
     align-items: center;
     cursor: pointer;
     flex-shrink: 0;
+    color: #000; /* 未选中时文字颜色为黑色 */
     &:last-child {
       margin-right: 0;
     }
@@ -51,7 +63,6 @@
     .closeIcon {
       margin-left: 6px;
       font-size: 12px;
-      color: #999;
       cursor: pointer;
       transition: color 0.2s;
       vertical-align: middle;

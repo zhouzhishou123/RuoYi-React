@@ -10,6 +10,7 @@
   :global {
     .ant-layout {
       height: 100vh;
+      overflow: hidden;
 
       .ant-layout-sider {
         height: 100vh;
@@ -19,6 +20,7 @@
         bottom: 0;
         z-index: 100;
         overflow-y: auto;
+        overflow-x: hidden;
       }
 
       .ant-layout-header {
@@ -27,9 +29,12 @@
         right: 0;
         z-index: 99;
         width: calc(100% - var(--sider-width));
+        height: 50px;
         transition: all 0.2s;
         background: #fff;
         box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+        flex-shrink: 0;
+        overflow: hidden;
 
         &.collapsed {
           width: calc(100% - 80px);
@@ -39,22 +44,27 @@
       .main-layout {
         margin-left: var(--sider-width);
         transition: all 0.2s;
-        min-height: 100vh;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
 
         &.collapsed {
           margin-left: 80px;
         }
 
         .main-content {
-          margin-top: 40px;
+          height: calc(100vh - 90px);
+          flex: 1;
+          margin-top: 90px; // Header(50px) + TagsView(40px)
           padding: 24px;
-          overflow-y: auto;
+          min-height: 0; // 配合 flex: 1 使用，确保正确计算高度
 
           .ant-layout-content {
             background: #fff;
             padding: 24px;
             border-radius: 4px;
-            min-height: calc(100vh - 50px - 48px);
+            min-height: 100%;
           }
         }
       }

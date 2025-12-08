@@ -1,4 +1,4 @@
-import { SuccessResponse } from '@/commom/Decorator/success.response.decorator';
+import { SuccessResponse } from '@/common/Decorator/success.response.decorator';
 import { success } from '@/utils/Res';
 import {
   Body,
@@ -41,14 +41,15 @@ export class UserController {
     });
   }
 
-  @Post()
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.userService.create(createUserDto);
+  @Post('user')
+  async create(@Body() createUserDto: CreateUserDto) {
+    return await this.userService.create(createUserDto);
   }
 
   @Get('user')
-  getUserList() {
-    return this.userService.findAll();
+  async getUserList() {
+    const users = await this.userService.findAll();
+    return success({ list: users });
   }
 
   @Get('user/:id')
@@ -57,12 +58,14 @@ export class UserController {
   }
 
   @Patch('user/:id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.userService.update(updateUserDto);
+  async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
+    // 确保 userId 与路径参数一致
+    updateUserDto.userId = id;
+    return await this.userService.update(updateUserDto);
   }
 
   @Delete('user/:id')
-  remove(@Param('id') id: string) {
-    return this.userService.remove(+id);
+  async remove(@Param('id') id: string) {
+    return await this.userService.remove(id);
   }
 }

@@ -28,6 +28,8 @@ function SideLayout() {
         <div className="main-content">
           <Content
             style={{
+              overflow: 'auto',
+              height: '100%',
               background: colorBgContainer,
               borderRadius: borderRadiusLG,
             }}

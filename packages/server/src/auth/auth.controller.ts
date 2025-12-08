@@ -1,4 +1,4 @@
-import { SuccessResponse } from '@/commom/Decorator/success.response.decorator';
+import { SuccessResponse } from '@/common/Decorator/success.response.decorator';
 import { PasswordUtil } from '@/utils/security';
 import { Body, Controller, Get, Post, Session } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';

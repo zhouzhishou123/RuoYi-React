@@ -12,30 +12,31 @@ declare module 'express' {
     user?: UserPayload;
   }
 }
-// 接口白名单
-const whiteList: string[] = [];
-
 @Injectable()
 export class AuthGuardGuard implements CanActivate {
   private prefix: string;
+  private whiteList: Set<string>;
+
   constructor(
     private readonly jwtService: JwtService,
     private reflector: Reflector,
     private configService: ConfigService,
   ) {
     this.prefix = this.configService.get('GLOBAL_PREFIX') || 'api';
-    whiteList.push(
+    this.whiteList = new Set([
       `/${this.prefix}/login`, // 登录接口
       `/${this.prefix}/captchaImage`, // 验证码接口
-    );
+    ]);
   }
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest<Request>();
     // 检查是否是公共路由
     const path = request.path;
-    if (whiteList.some((publicPath) => path.includes(publicPath))) {
-      return true;
+    for (const publicPath of this.whiteList) {
+      if (path === publicPath || path.startsWith(publicPath + '/')) {
+        return true;
+      }
     }
 
     const token = this.extractTokenFromHeader(request);

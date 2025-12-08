@@ -31,10 +31,12 @@ http.interceptors.response.use(
     return Promise.reject(response.data);
   },
   error => {
-    if (error.status === 401) {
+    if (error.response?.status === 401) {
       message.error('登录已过期，请重新登录');
       localStorage.removeItem('persist:root');
       window.location.href = '/login';
+    } else if (error.message) {
+      message.error(error.message);
     }
     return Promise.reject(error);
   },

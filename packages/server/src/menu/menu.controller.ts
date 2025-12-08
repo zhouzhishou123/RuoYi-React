@@ -1,19 +1,44 @@
 import { AuthenticatedRequest } from '@/types';
-import { Controller, Get, Param, Req, UnauthorizedException } from '@nestjs/common';
+import { Controller, Get, Post, Patch, Delete, Param, Body, Req, UnauthorizedException } from '@nestjs/common';
 import { success } from '../utils/Res';
 import { MenuService } from './menu.service';
+import { CreateMenuDto } from './dto/create-menu.dto';
+import { UpdateMenuDto } from './dto/update-menu.dto';
+
 @Controller('menu')
 export class MenuController {
   constructor(private readonly menuService: MenuService) {}
+
   // 查询所有菜单列表
   @Get('list')
   async findAllMenus() {
-    return this.menuService.findAllMenus();
+    const menus = await this.menuService.findAllMenus();
+    return success({ list: menus });
   }
+
   // 根据菜单ID查询菜单
   @Get(':id')
   async findMenuById(@Param('id') id: string) {
     return this.menuService.findMenuById(id);
+  }
+
+  // 创建菜单
+  @Post()
+  async create(@Body() createMenuDto: CreateMenuDto) {
+    return await this.menuService.create(createMenuDto);
+  }
+
+  // 更新菜单
+  @Patch(':id')
+  async update(@Param('id') id: string, @Body() updateMenuDto: UpdateMenuDto) {
+    updateMenuDto.menuId = id;
+    return await this.menuService.update(updateMenuDto);
+  }
+
+  // 删除菜单
+  @Delete(':id')
+  async remove(@Param('id') id: string) {
+    return await this.menuService.remove(id);
   }
 
   @Get()
